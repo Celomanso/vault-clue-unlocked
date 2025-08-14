@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Evidence } from './VaultContents';
 import { X, ZoomIn } from 'lucide-react';
@@ -49,6 +49,9 @@ export const EvidenceModal = ({ evidence, onClose }: EvidenceModalProps) => {
               <X className="w-5 h-5" />
             </Button>
           </div>
+          <DialogDescription className="sr-only">
+            Detalhes da evidência {evidence.name}
+          </DialogDescription>
         </DialogHeader>
         
         <div className="space-y-6">
@@ -103,7 +106,10 @@ export const EvidenceModal = ({ evidence, onClose }: EvidenceModalProps) => {
       {/* Zoomed Image Modal */}
       {isImageZoomed && (
         <Dialog open={isImageZoomed} onOpenChange={setIsImageZoomed}>
-          <DialogContent className="max-w-4xl max-h-[90vh] bg-black/95 border-border p-2">
+          <DialogContent className="max-w-4xl max-h-[90vh] bg-black/95 border-border p-2 z-[60]">
+            <DialogDescription className="sr-only">
+              Imagem ampliada da evidência {evidence.name}
+            </DialogDescription>
             <div className="relative">
               <Button
                 variant="ghost"
