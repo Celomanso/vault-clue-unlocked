@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { EvidenceModal } from './EvidenceModal';
-import { ArrowLeft, FileText, Map, Camera, Scissors, Package } from 'lucide-react';
+import { ArrowLeft, FileText, Map, Camera, Scissors, Package, Mail, Sparkles, Clipboard, Receipt } from 'lucide-react';
 
 interface VaultContentsProps {
   onClose: () => void;
@@ -50,6 +50,34 @@ const EVIDENCE_ITEMS: Evidence[] = [
     description: 'Papéis com horários e palavras-chave',
     details: 'Anotações rasgadas: "21h – acesso lateral / 21h05 – entrada / 21h15 – janela fechada" e "fita – janela – beco".',
     icon: <Package className="w-8 h-8" />
+  },
+  {
+    id: 'envelope',
+    name: 'Envelope com Autorização',
+    description: 'Documento oficial assinado por Helena',
+    details: 'Envelope pardo contendo documento oficial assinado por Helena, autorizando Eduardo a acessar áreas restritas. Data de três meses antes do crime.',
+    icon: <Mail className="w-8 h-8" />
+  },
+  {
+    id: 'gold-pouch',
+    name: 'Saquinho de Pó de Ouro',
+    description: 'Pequeno saco com pó dourado e nome "Vicente"',
+    details: 'Pequeno saco de tecido com resquícios de pó dourado. Etiqueta com a palavra "Vicente" escrita à mão.',
+    icon: <Sparkles className="w-8 h-8" />
+  },
+  {
+    id: 'carlos-notes',
+    name: 'Anotações de Carlos',
+    description: 'Folha pautada com cálculos e anotações',
+    details: 'Folha de bloco pautado com cabeçalho do Centro de Pesquisa, caligrafia de Carlos. Quatro colunas verticais, três preenchidas com números específicos, a quarta deixada em branco. Comentários na margem: "repartir pelo marcador" e "equilibrar antes do último". Cálculo resolvido com o número final da senha. Datada dois dias antes do crime.',
+    icon: <Clipboard className="w-8 h-8" />
+  },
+  {
+    id: 'receipt',
+    name: 'Recibo de Fita Adesiva',
+    description: 'Recibo de compra no nome de Paulo',
+    details: 'Recibo de loja de ferragens com nome de Paulo e compra de fita adesiva industrial. Tipo e data não coincidem com a fita do crime.',
+    icon: <Receipt className="w-8 h-8" />
   }
 ];
 
