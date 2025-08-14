@@ -61,7 +61,30 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				// Investigation theme colors
+				'vault-metal': 'hsl(var(--vault-metal))',
+				'vault-interior': 'hsl(var(--vault-interior))',
+				'digital-glow': 'hsl(var(--digital-glow))',
+				'error-glow': 'hsl(var(--error-glow))',
+				'lantern-light': 'hsl(var(--lantern-light))',
+				'shadow-deep': 'hsl(var(--shadow-deep))'
+			},
+			backgroundImage: {
+				'gradient-vault': 'var(--gradient-vault)',
+				'gradient-interior': 'var(--gradient-interior)',
+				'gradient-lantern': 'var(--gradient-lantern)',
+				'gradient-digital': 'var(--gradient-digital)'
+			},
+			boxShadow: {
+				'lantern': 'var(--shadow-lantern)',
+				'vault': 'var(--shadow-vault)',
+				'digital': 'var(--shadow-digital)',
+				'error': 'var(--shadow-error)'
+			},
+			transitionProperty: {
+				'vault': 'var(--transition-vault)',
+				'digital': 'var(--transition-digital)'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -84,11 +107,54 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'flicker': {
+					'0%, 100%': { opacity: '1' },
+					'50%': { opacity: '0.7' }
+				},
+				'glow-pulse': {
+					'0%, 100%': { 
+						boxShadow: '0 0 20px hsl(var(--digital-glow) / 0.5)',
+						textShadow: '0 0 10px hsl(var(--digital-glow) / 0.8)'
+					},
+					'50%': { 
+						boxShadow: '0 0 40px hsl(var(--digital-glow) / 0.8)',
+						textShadow: '0 0 20px hsl(var(--digital-glow))'
+					}
+				},
+				'error-flash': {
+					'0%, 100%': { 
+						backgroundColor: 'hsl(var(--input))',
+						boxShadow: 'none'
+					},
+					'50%': { 
+						backgroundColor: 'hsl(var(--error-glow) / 0.2)',
+						boxShadow: '0 0 20px hsl(var(--error-glow) / 0.6)'
+					}
+				},
+				'vault-open': {
+					'0%': { transform: 'scaleY(1)' },
+					'100%': { transform: 'scaleY(0)' }
+				},
+				'fade-in-up': {
+					'0%': { 
+						opacity: '0',
+						transform: 'translateY(20px)'
+					},
+					'100%': { 
+						opacity: '1',
+						transform: 'translateY(0)'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'flicker': 'flicker 3s ease-in-out infinite',
+				'glow-pulse': 'glow-pulse 2s ease-in-out infinite',
+				'error-flash': 'error-flash 0.5s ease-in-out 3',
+				'vault-open': 'vault-open 1s ease-out forwards',
+				'fade-in-up': 'fade-in-up 0.6s ease-out'
 			}
 		}
 	},
