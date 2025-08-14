@@ -8,6 +8,22 @@ interface EvidenceModalProps {
   onClose: () => void;
 }
 
+const getEvidenceImage = (evidenceId: string): string => {
+  const imageMap: Record<string, string> = {
+    'map': '/lovable-uploads/97713266-aca7-4020-a898-aedb5a980645.png',
+    'notebook': '/lovable-uploads/521965aa-3169-4843-afc8-ed10137be88d.png',
+    'fabric': '/lovable-uploads/45015808-3dce-4f7a-8b30-165f4d13b4e1.png',
+    'photo': '/lovable-uploads/eec87c7c-d54f-4a99-bdd7-b21bda166f6f.png',
+    'papers': '/lovable-uploads/d39bc32a-e76e-4aab-b48e-9a810fbe5426.png',
+    'envelope': '/lovable-uploads/cef73dbb-6cbf-45e5-be61-4ee41cdacc8a.png',
+    'gold-pouch': '/lovable-uploads/bda2b6c5-db58-4822-a6c7-5b8102e592ba.png',
+    'carlos-notes': '/lovable-uploads/c13156a0-bc46-4b31-b677-bc60829b59ca.png',
+    'receipt': '/lovable-uploads/4eb951e1-0894-4dab-82ef-fa8f989516fa.png'
+  };
+  
+  return imageMap[evidenceId] || '/lovable-uploads/bda2b6c5-db58-4822-a6c7-5b8102e592ba.png';
+};
+
 export const EvidenceModal = ({ evidence, onClose }: EvidenceModalProps) => {
   return (
     <Dialog open={true} onOpenChange={onClose}>
@@ -32,16 +48,13 @@ export const EvidenceModal = ({ evidence, onClose }: EvidenceModalProps) => {
         </DialogHeader>
         
         <div className="space-y-6">
-          {/* Evidence Image Placeholder */}
-          <div className="w-full h-64 bg-vault-interior border border-border rounded-lg flex items-center justify-center shadow-vault">
-            <div className="text-center space-y-2">
-              <div className="w-16 h-16 mx-auto rounded-full bg-vault-metal shadow-vault flex items-center justify-center text-lantern-light">
-                {evidence.icon}
-              </div>
-              <p className="text-muted-foreground text-sm">
-                Imagem da evidência
-              </p>
-            </div>
+          {/* Evidence Image */}
+          <div className="w-full h-64 bg-vault-interior border border-border rounded-lg overflow-hidden shadow-vault">
+            <img 
+              src={getEvidenceImage(evidence.id)} 
+              alt={evidence.name}
+              className="w-full h-full object-cover"
+            />
           </div>
           
           {/* Evidence Details */}
