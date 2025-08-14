@@ -1,8 +1,7 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Evidence } from './VaultContents';
-import { X, ZoomIn } from 'lucide-react';
-import { useState } from 'react';
+import { X } from 'lucide-react';
 
 interface EvidenceModalProps {
   evidence: Evidence;
@@ -26,12 +25,9 @@ const getEvidenceImage = (evidenceId: string): string => {
 };
 
 export const EvidenceModal = ({ evidence, onClose }: EvidenceModalProps) => {
-  const [isImageZoomed, setIsImageZoomed] = useState(false);
-
   return (
-    <>
-      <Dialog open={true} onOpenChange={onClose}>
-        <DialogContent className="max-w-2xl bg-card border-border shadow-vault">
+    <Dialog open={true} onOpenChange={onClose}>
+      <DialogContent className="max-w-2xl bg-card border-border shadow-vault">
         <DialogHeader className="space-y-4">
           <div className="flex items-center justify-between">
             <DialogTitle className="text-2xl font-bold text-foreground flex items-center gap-3">
@@ -53,18 +49,12 @@ export const EvidenceModal = ({ evidence, onClose }: EvidenceModalProps) => {
         
         <div className="space-y-6">
           {/* Evidence Image */}
-          <div className="w-full h-64 bg-vault-interior border border-border rounded-lg overflow-hidden shadow-vault relative group">
+          <div className="w-full h-64 bg-vault-interior border border-border rounded-lg overflow-hidden shadow-vault">
             <img 
               src={getEvidenceImage(evidence.id)} 
               alt={evidence.name}
-              className="w-full h-full object-cover cursor-pointer transition-transform hover:scale-105"
-              onClick={() => setIsImageZoomed(true)}
+              className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-              <div className="bg-black/70 rounded-full p-2">
-                <ZoomIn className="w-6 h-6 text-white" />
-              </div>
-            </div>
           </div>
           
           {/* Evidence Details */}
@@ -97,31 +87,7 @@ export const EvidenceModal = ({ evidence, onClose }: EvidenceModalProps) => {
             Continuar Investigação
           </Button>
         </div>
-        </DialogContent>
-      </Dialog>
-      
-      {/* Zoomed Image Modal */}
-      {isImageZoomed && (
-        <Dialog open={isImageZoomed} onOpenChange={setIsImageZoomed}>
-          <DialogContent className="max-w-4xl max-h-[90vh] bg-black/95 border-border p-2">
-            <div className="relative">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setIsImageZoomed(false)}
-                className="absolute top-2 right-2 z-10 bg-black/50 hover:bg-black/70 text-white border-none"
-              >
-                <X className="w-5 h-5" />
-              </Button>
-              <img 
-                src={getEvidenceImage(evidence.id)} 
-                alt={evidence.name}
-                className="w-full h-auto max-h-[85vh] object-contain rounded-lg"
-              />
-            </div>
-          </DialogContent>
-        </Dialog>
-      )}
-    </>
+      </DialogContent>
+    </Dialog>
   );
 };
