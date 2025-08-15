@@ -29,10 +29,14 @@ export const EvidenceModal = ({ evidence, onClose }: EvidenceModalProps) => {
   const [isImageZoomed, setIsImageZoomed] = useState(false);
 
   const handleImageClick = () => {
+    console.log('Image clicked, setting zoom to true');
     setIsImageZoomed(true);
   };
 
-  const handleCloseZoom = () => {
+  const handleCloseZoom = (e?: React.MouseEvent) => {
+    e?.preventDefault();
+    e?.stopPropagation();
+    console.log('Closing zoom');
     setIsImageZoomed(false);
   };
 
@@ -114,20 +118,32 @@ export const EvidenceModal = ({ evidence, onClose }: EvidenceModalProps) => {
       {/* Zoomed Image Overlay */}
       {isImageZoomed && (
         <div 
-          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black/90 z-[9999] flex items-center justify-center p-4"
+          style={{ zIndex: 9999 }}
           onClick={handleCloseZoom}
         >
-          <div className="relative" onClick={(e) => e.stopPropagation()}>
+          <div className="relative max-w-[90vw] max-h-[90vh]" onClick={(e) => e.stopPropagation()}>
             <button
-              onClick={handleCloseZoom}
-              className="absolute -top-12 right-0 bg-white/20 hover:bg-white/30 text-white rounded-full p-3 transition-colors"
+              onClick={(e) => {
+                console.log('Close button clicked');
+                handleCloseZoom(e);
+              }}
+              className="absolute top-2 right-2 z-[10000] bg-black/70 hover:bg-black/90 text-white border-none rounded-full p-2 transition-colors touch-manipulation"
+              style={{ 
+                zIndex: 10000,
+                minWidth: '44px',
+                minHeight: '44px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
             >
               <X className="w-6 h-6" />
             </button>
             <img 
               src={getEvidenceImage(evidence.id)} 
               alt={evidence.name}
-              className="max-w-[90vw] max-h-[90vh] object-contain rounded-lg"
+              className="max-w-full max-h-full object-contain rounded-lg cursor-default"
             />
           </div>
         </div>
