@@ -28,6 +28,16 @@ const getEvidenceImage = (evidenceId: string): string => {
 export const EvidenceModal = ({ evidence, onClose }: EvidenceModalProps) => {
   const [isImageZoomed, setIsImageZoomed] = useState(false);
 
+  const handleImageClick = () => {
+    console.log('Image clicked, setting zoom to true');
+    setIsImageZoomed(true);
+  };
+
+  const handleCloseZoom = () => {
+    console.log('Closing zoom');
+    setIsImageZoomed(false);
+  };
+
   return (
     <>
       <Dialog open={true} onOpenChange={onClose}>
@@ -61,7 +71,7 @@ export const EvidenceModal = ({ evidence, onClose }: EvidenceModalProps) => {
               src={getEvidenceImage(evidence.id)} 
               alt={evidence.name}
               className="w-full h-full object-cover cursor-pointer transition-transform hover:scale-105"
-              onClick={() => setIsImageZoomed(true)}
+              onClick={handleImageClick}
             />
             <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
               <div className="bg-black/50 rounded-lg px-3 py-1">
@@ -106,14 +116,15 @@ export const EvidenceModal = ({ evidence, onClose }: EvidenceModalProps) => {
       {/* Zoomed Image Overlay */}
       {isImageZoomed && (
         <div 
-          className="fixed inset-0 bg-black/90 z-[100] flex items-center justify-center p-4 cursor-pointer"
-          onClick={() => setIsImageZoomed(false)}
+          className="fixed inset-0 bg-black/90 z-[9999] flex items-center justify-center p-4"
+          style={{ zIndex: 9999 }}
+          onClick={handleCloseZoom}
         >
-          <div className="relative max-w-[90vw] max-h-[90vh]">
+          <div className="relative max-w-[90vw] max-h-[90vh]" onClick={(e) => e.stopPropagation()}>
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => setIsImageZoomed(false)}
+              onClick={handleCloseZoom}
               className="absolute top-2 right-2 z-10 bg-black/50 hover:bg-black/70 text-white border-none"
             >
               <X className="w-5 h-5" />
@@ -121,8 +132,7 @@ export const EvidenceModal = ({ evidence, onClose }: EvidenceModalProps) => {
             <img 
               src={getEvidenceImage(evidence.id)} 
               alt={evidence.name}
-              className="max-w-full max-h-full object-contain rounded-lg"
-              onClick={(e) => e.stopPropagation()}
+              className="max-w-full max-h-full object-contain rounded-lg cursor-default"
             />
           </div>
         </div>
