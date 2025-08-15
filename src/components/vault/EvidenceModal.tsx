@@ -33,7 +33,9 @@ export const EvidenceModal = ({ evidence, onClose }: EvidenceModalProps) => {
     setIsImageZoomed(true);
   };
 
-  const handleCloseZoom = () => {
+  const handleCloseZoom = (e?: React.MouseEvent) => {
+    e?.preventDefault();
+    e?.stopPropagation();
     console.log('Closing zoom');
     setIsImageZoomed(false);
   };
@@ -121,14 +123,23 @@ export const EvidenceModal = ({ evidence, onClose }: EvidenceModalProps) => {
           onClick={handleCloseZoom}
         >
           <div className="relative max-w-[90vw] max-h-[90vh]" onClick={(e) => e.stopPropagation()}>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleCloseZoom}
-              className="absolute top-2 right-2 z-10 bg-black/50 hover:bg-black/70 text-white border-none"
+            <button
+              onClick={(e) => {
+                console.log('Close button clicked');
+                handleCloseZoom(e);
+              }}
+              className="absolute top-2 right-2 z-[10000] bg-black/70 hover:bg-black/90 text-white border-none rounded-full p-2 transition-colors touch-manipulation"
+              style={{ 
+                zIndex: 10000,
+                minWidth: '44px',
+                minHeight: '44px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
             >
-              <X className="w-5 h-5" />
-            </Button>
+              <X className="w-6 h-6" />
+            </button>
             <img 
               src={getEvidenceImage(evidence.id)} 
               alt={evidence.name}
