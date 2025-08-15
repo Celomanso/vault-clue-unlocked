@@ -73,7 +73,7 @@ export const EvidenceModal = ({ evidence, onClose }: EvidenceModalProps) => {
               className="w-full h-full object-cover cursor-pointer transition-transform hover:scale-105"
               onClick={handleImageClick}
             />
-            <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+            <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
               <div className="bg-black/50 rounded-lg px-3 py-1">
                 <span className="text-white text-sm font-medium">Clique para ampliar</span>
               </div>
