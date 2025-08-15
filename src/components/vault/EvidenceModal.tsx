@@ -63,9 +63,9 @@ export const EvidenceModal = ({ evidence, onClose }: EvidenceModalProps) => {
               className="w-full h-full object-cover cursor-pointer transition-transform hover:scale-105"
               onClick={() => setIsImageZoomed(true)}
             />
-            <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-              <div className="bg-black/70 rounded-full p-2">
-                <ZoomIn className="w-6 h-6 text-white" />
+            <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+              <div className="bg-black/50 rounded-lg px-3 py-1">
+                <span className="text-white text-sm font-medium">Clique para ampliar</span>
               </div>
             </div>
           </div>
@@ -103,30 +103,29 @@ export const EvidenceModal = ({ evidence, onClose }: EvidenceModalProps) => {
         </DialogContent>
       </Dialog>
       
-      {/* Zoomed Image Modal */}
+      {/* Zoomed Image Overlay */}
       {isImageZoomed && (
-        <Dialog open={isImageZoomed} onOpenChange={setIsImageZoomed}>
-          <DialogContent className="max-w-4xl max-h-[90vh] bg-black/95 border-border p-2 z-[60]">
-            <DialogDescription className="sr-only">
-              Imagem ampliada da evidência {evidence.name}
-            </DialogDescription>
-            <div className="relative">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setIsImageZoomed(false)}
-                className="absolute top-2 right-2 z-10 bg-black/50 hover:bg-black/70 text-white border-none"
-              >
-                <X className="w-5 h-5" />
-              </Button>
-              <img 
-                src={getEvidenceImage(evidence.id)} 
-                alt={evidence.name}
-                className="w-full h-auto max-h-[85vh] object-contain rounded-lg"
-              />
-            </div>
-          </DialogContent>
-        </Dialog>
+        <div 
+          className="fixed inset-0 bg-black/90 z-[100] flex items-center justify-center p-4 cursor-pointer"
+          onClick={() => setIsImageZoomed(false)}
+        >
+          <div className="relative max-w-[90vw] max-h-[90vh]">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setIsImageZoomed(false)}
+              className="absolute top-2 right-2 z-10 bg-black/50 hover:bg-black/70 text-white border-none"
+            >
+              <X className="w-5 h-5" />
+            </Button>
+            <img 
+              src={getEvidenceImage(evidence.id)} 
+              alt={evidence.name}
+              className="max-w-full max-h-full object-contain rounded-lg"
+              onClick={(e) => e.stopPropagation()}
+            />
+          </div>
+        </div>
       )}
     </>
   );
