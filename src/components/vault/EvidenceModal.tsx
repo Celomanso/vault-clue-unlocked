@@ -30,12 +30,10 @@ export const EvidenceModal = ({ evidence, onClose }: EvidenceModalProps) => {
   const [isImageZoomed, setIsImageZoomed] = useState(false);
 
   const handleImageClick = () => {
-    console.log('Image clicked, setting zoom to true');
     setIsImageZoomed(true);
   };
 
-  const closeZoom = () => {
-    console.log('Closing zoom - direct call');
+  const closeZoomSimple = () => {
     setIsImageZoomed(false);
   };
 
@@ -114,32 +112,53 @@ export const EvidenceModal = ({ evidence, onClose }: EvidenceModalProps) => {
         </DialogContent>
       </Dialog>
       
-      {/* Zoomed Image Overlay */}
+      {/* OVERLAY SUPER SIMPLES */}
       {isImageZoomed && (
         <div 
-          className="fixed inset-0 bg-black/90 z-[9999] flex items-center justify-center p-4"
-          onClick={closeZoom}
+          style={{
+            position: 'fixed',
+            top: '0',
+            left: '0',
+            width: '100%',
+            height: '100%',
+            backgroundColor: 'rgba(0, 0, 0, 0.9)',
+            zIndex: '999999',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '20px'
+          }}
         >
-          {/* Close button */}
           <button
-            onClick={closeZoom}
-            className="absolute top-4 right-4 w-12 h-12 bg-background/10 backdrop-blur-sm border border-border/20 text-foreground rounded-full flex items-center justify-center hover:bg-background/20 transition-colors z-10"
-            type="button"
+            onClick={closeZoomSimple}
+            style={{
+              position: 'absolute',
+              top: '20px',
+              right: '20px',
+              width: '60px',
+              height: '60px',
+              backgroundColor: '#ff0000',
+              color: '#ffffff',
+              border: 'none',
+              borderRadius: '50%',
+              fontSize: '24px',
+              fontWeight: 'bold',
+              cursor: 'pointer',
+              zIndex: '1000000'
+            }}
           >
-            <X className="w-6 h-6" />
+            ✕
           </button>
           
-          {/* Image container */}
-          <div 
-            className="relative max-w-[95vw] max-h-[95vh]"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <img 
-              src={getEvidenceImage(evidence.id)} 
-              alt={evidence.name}
-              className="w-full h-full object-contain rounded-lg"
-            />
-          </div>
+          <img 
+            src={getEvidenceImage(evidence.id)} 
+            alt={evidence.name}
+            style={{
+              maxWidth: '90%',
+              maxHeight: '90%',
+              objectFit: 'contain'
+            }}
+          />
         </div>
       )}
     </>
