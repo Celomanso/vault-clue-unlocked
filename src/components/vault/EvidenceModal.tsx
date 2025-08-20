@@ -1,3 +1,4 @@
+
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Evidence } from './VaultContents';
@@ -33,10 +34,8 @@ export const EvidenceModal = ({ evidence, onClose }: EvidenceModalProps) => {
     setIsImageZoomed(true);
   };
 
-  const handleCloseZoom = (e?: React.MouseEvent) => {
-    e?.preventDefault();
-    e?.stopPropagation();
-    console.log('Closing zoom');
+  const closeZoom = () => {
+    console.log('Closing zoom - direct call');
     setIsImageZoomed(false);
   };
 
@@ -115,26 +114,41 @@ export const EvidenceModal = ({ evidence, onClose }: EvidenceModalProps) => {
         </DialogContent>
       </Dialog>
       
-      {/* Zoomed Image Overlay */}
+      {/* Zoomed Image Overlay - Versão Simplificada */}
       {isImageZoomed && (
         <div 
-          className="fixed inset-0 bg-black/90 flex items-center justify-center p-4"
-          style={{ zIndex: 99999 }}
-          onClick={() => setIsImageZoomed(false)}
+          className="fixed inset-0 bg-black/95 flex flex-col items-center justify-center p-4"
+          style={{ zIndex: 999999 }}
         >
-          <div className="relative" onClick={(e) => e.stopPropagation()}>
+          {/* Botão de fechar no topo */}
+          <div className="w-full flex justify-end mb-4">
             <button
-              onClick={() => setIsImageZoomed(false)}
-              className="absolute -top-4 -right-4 w-10 h-10 bg-white text-black rounded-full flex items-center justify-center font-bold text-xl hover:bg-gray-200 transition-colors"
+              onClick={closeZoom}
+              className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-bold text-lg shadow-lg transition-colors"
               type="button"
             >
-              ×
+              FECHAR
             </button>
+          </div>
+          
+          {/* Imagem */}
+          <div className="flex-1 flex items-center justify-center">
             <img 
               src={getEvidenceImage(evidence.id)} 
               alt={evidence.name}
-              className="max-w-[90vw] max-h-[90vh] object-contain rounded-lg"
+              className="max-w-[90vw] max-h-[80vh] object-contain rounded-lg"
             />
+          </div>
+          
+          {/* Botão de fechar na parte inferior também */}
+          <div className="w-full flex justify-center mt-4">
+            <button
+              onClick={closeZoom}
+              className="bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-lg font-bold text-xl shadow-lg transition-colors"
+              type="button"
+            >
+              FECHAR IMAGEM
+            </button>
           </div>
         </div>
       )}
