@@ -118,23 +118,43 @@ export const EvidenceModal = ({ evidence, onClose }: EvidenceModalProps) => {
       {/* Zoomed Image Overlay */}
       {isImageZoomed && (
         <div 
-          className="fixed inset-0 bg-black/90 flex items-center justify-center p-4"
-          style={{ zIndex: 99999 }}
-          onClick={() => setIsImageZoomed(false)}
+          className="fixed inset-0 z-[100000] bg-black/90 flex items-center justify-center p-4"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setIsImageZoomed(false);
+          }}
+          onTouchEnd={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setIsImageZoomed(false);
+          }}
         >
-          <div className="relative" onClick={(e) => e.stopPropagation()}>
-            <button
-              onClick={() => setIsImageZoomed(false)}
-              className="absolute -top-4 -right-4 w-10 h-10 bg-white text-black rounded-full flex items-center justify-center font-bold text-xl hover:bg-gray-200 transition-colors"
-              type="button"
-            >
-              ×
-            </button>
+          <div className="relative max-w-full max-h-full">
             <img 
               src={getEvidenceImage(evidence.id)} 
               alt={evidence.name}
               className="max-w-[90vw] max-h-[90vh] object-contain rounded-lg"
+              onClick={(e) => e.stopPropagation()}
+              onTouchEnd={(e) => e.stopPropagation()}
             />
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setIsImageZoomed(false);
+              }}
+              onTouchEnd={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setIsImageZoomed(false);
+              }}
+              className="absolute top-2 right-2 w-12 h-12 bg-background/80 hover:bg-background text-foreground rounded-full flex items-center justify-center text-2xl font-bold shadow-lg backdrop-blur-sm border border-border/50"
+              type="button"
+              aria-label="Fechar imagem"
+            >
+              <X className="w-6 h-6" />
+            </button>
           </div>
         </div>
       )}
