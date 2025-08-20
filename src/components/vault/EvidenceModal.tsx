@@ -114,41 +114,31 @@ export const EvidenceModal = ({ evidence, onClose }: EvidenceModalProps) => {
         </DialogContent>
       </Dialog>
       
-      {/* Zoomed Image Overlay - Versão Simplificada */}
+      {/* Zoomed Image Overlay */}
       {isImageZoomed && (
         <div 
-          className="fixed inset-0 bg-black/95 flex flex-col items-center justify-center p-4"
-          style={{ zIndex: 999999 }}
+          className="fixed inset-0 bg-black/90 z-[9999] flex items-center justify-center p-4"
+          onClick={closeZoom}
         >
-          {/* Botão de fechar no topo */}
-          <div className="w-full flex justify-end mb-4">
-            <button
-              onClick={closeZoom}
-              className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-bold text-lg shadow-lg transition-colors"
-              type="button"
-            >
-              FECHAR
-            </button>
-          </div>
+          {/* Close button */}
+          <button
+            onClick={closeZoom}
+            className="absolute top-4 right-4 w-12 h-12 bg-background/10 backdrop-blur-sm border border-border/20 text-foreground rounded-full flex items-center justify-center hover:bg-background/20 transition-colors z-10"
+            type="button"
+          >
+            <X className="w-6 h-6" />
+          </button>
           
-          {/* Imagem */}
-          <div className="flex-1 flex items-center justify-center">
+          {/* Image container */}
+          <div 
+            className="relative max-w-[95vw] max-h-[95vh]"
+            onClick={(e) => e.stopPropagation()}
+          >
             <img 
               src={getEvidenceImage(evidence.id)} 
               alt={evidence.name}
-              className="max-w-[90vw] max-h-[80vh] object-contain rounded-lg"
+              className="w-full h-full object-contain rounded-lg"
             />
-          </div>
-          
-          {/* Botão de fechar na parte inferior também */}
-          <div className="w-full flex justify-center mt-4">
-            <button
-              onClick={closeZoom}
-              className="bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-lg font-bold text-xl shadow-lg transition-colors"
-              type="button"
-            >
-              FECHAR IMAGEM
-            </button>
           </div>
         </div>
       )}
