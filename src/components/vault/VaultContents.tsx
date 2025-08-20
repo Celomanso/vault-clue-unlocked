@@ -67,7 +67,7 @@ const EVIDENCE_ITEMS: Evidence[] = [
   },
   {
     id: 'carlos-notes',
-    name: 'Anotações de Carlos',
+    name: 'Anotações',
     description: 'Folha pautada com cálculos e anotações',
     details: 'Folha de bloco pautado com cabeçalho do Centro de Pesquisa, caligrafia de Carlos. Quatro colunas verticais, três preenchidas com números específicos, a quarta deixada em branco. Comentários na margem: "repartir pelo marcador" e "equilibrar antes do último". Cálculo resolvido com o número final da senha. Datada dois dias antes do crime.',
     icon: <Clipboard className="w-8 h-8" />

@@ -115,46 +115,40 @@ export const EvidenceModal = ({ evidence, onClose }: EvidenceModalProps) => {
         </DialogContent>
       </Dialog>
       
-      {/* Zoomed Image Overlay */}
+      {/* Zoomed Image Overlay - Simplified for mobile */}
       {isImageZoomed && (
         <div 
-          className="fixed inset-0 z-[100000] bg-black/90 flex items-center justify-center p-4"
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            setIsImageZoomed(false);
+          className="fixed inset-0 bg-black/95 flex items-center justify-center"
+          style={{ 
+            zIndex: 999999,
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            width: '100vw',
+            height: '100vh'
           }}
-          onTouchEnd={(e) => {
+          onPointerDown={(e) => {
             e.preventDefault();
-            e.stopPropagation();
             setIsImageZoomed(false);
           }}
         >
-          <div className="relative max-w-full max-h-full">
-            <img 
-              src={getEvidenceImage(evidence.id)} 
-              alt={evidence.name}
-              className="max-w-[90vw] max-h-[90vh] object-contain rounded-lg"
-              onClick={(e) => e.stopPropagation()}
-              onTouchEnd={(e) => e.stopPropagation()}
-            />
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                setIsImageZoomed(false);
-              }}
-              onTouchEnd={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                setIsImageZoomed(false);
-              }}
-              className="absolute top-2 right-2 w-12 h-12 bg-background/80 hover:bg-background text-foreground rounded-full flex items-center justify-center text-2xl font-bold shadow-lg backdrop-blur-sm border border-border/50"
-              type="button"
-              aria-label="Fechar imagem"
-            >
-              <X className="w-6 h-6" />
-            </button>
+          <img 
+            src={getEvidenceImage(evidence.id)} 
+            alt={evidence.name}
+            className="max-w-[85vw] max-h-[85vh] object-contain"
+            onPointerDown={(e) => e.stopPropagation()}
+          />
+          <div 
+            className="absolute top-4 right-4 w-12 h-12 bg-white text-black rounded-full flex items-center justify-center text-xl font-bold cursor-pointer"
+            onPointerDown={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setIsImageZoomed(false);
+            }}
+          >
+            ×
           </div>
         </div>
       )}
