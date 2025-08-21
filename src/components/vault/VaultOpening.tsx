@@ -17,12 +17,14 @@ export const VaultOpening = ({ onUnlocked }: VaultOpeningProps) => {
 
   const handleNumberClick = (num: string) => {
     if (password.length < 4) {
+      playKeySound();
       setPassword(prev => prev + num);
       setShowError(false);
     }
   };
 
   const handleClear = () => {
+    playKeySound();
     setPassword('');
     setShowError(false);
   };
@@ -34,10 +36,56 @@ export const VaultOpening = ({ onUnlocked }: VaultOpeningProps) => {
       playUnlockSound();
       setTimeout(onUnlocked, 1500);
     } else {
+      playErrorSound();
       setShowError(true);
       setPassword('');
       // Trigger error animation
       setTimeout(() => setShowError(false), 3000);
+    }
+  };
+
+  const playKeySound = () => {
+    // Create audio context for key press sound
+    if (typeof AudioContext !== 'undefined' || typeof (window as any).webkitAudioContext !== 'undefined') {
+      const AudioCtx = AudioContext || (window as any).webkitAudioContext;
+      const audioContext = new AudioCtx();
+      
+      // Create high-pitched beep sound
+      const oscillator = audioContext.createOscillator();
+      const gainNode = audioContext.createGain();
+      
+      oscillator.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+      
+      oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+      gainNode.gain.setValueAtTime(0.08, audioContext.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+      
+      oscillator.start(audioContext.currentTime);
+      oscillator.stop(audioContext.currentTime + 0.1);
+    }
+  };
+
+  const playErrorSound = () => {
+    // Create audio context for error sound
+    if (typeof AudioContext !== 'undefined' || typeof (window as any).webkitAudioContext !== 'undefined') {
+      const AudioCtx = AudioContext || (window as any).webkitAudioContext;
+      const audioContext = new AudioCtx();
+      
+      // Create low buzzing error sound
+      const oscillator = audioContext.createOscillator();
+      const gainNode = audioContext.createGain();
+      
+      oscillator.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+      
+      oscillator.frequency.setValueAtTime(200, audioContext.currentTime);
+      oscillator.frequency.setValueAtTime(150, audioContext.currentTime + 0.2);
+      gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.6);
+      
+      oscillator.start(audioContext.currentTime);
+      oscillator.stop(audioContext.currentTime + 0.6);
     }
   };
 
