@@ -31,13 +31,6 @@ const EVIDENCE_ITEMS: Evidence[] = [
     icon: <FileText className="w-8 h-8" />
   },
   {
-    id: 'fabric',
-    name: 'Fragmento de Tecido',
-    description: 'Fragmento de tecido marrom com resíduos',
-    details: 'Fragmento de lã marrom com resquícios de fita adesiva, compatível com a encontrada na janela.',
-    icon: <Scissors className="w-8 h-8" />
-  },
-  {
     id: 'photo',
     name: 'Foto do Beco',
     description: 'Foto impressa do beco lateral às 21:05',
